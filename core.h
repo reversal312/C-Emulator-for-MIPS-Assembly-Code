@@ -2,7 +2,7 @@
 
 #define MEM_SIZE 4096
 
-typedef struct
+typedef struct cpu_t
 {
   uint32_t reg[32];
   uint32_t pc;
