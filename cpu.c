@@ -19,6 +19,15 @@ void step(cpu_t *c)
 
   printf("pc=%08x instruction=%08x\n", c->pc, instruction);
 
+  uint32_t opcode = instruction >> 26;
+  uint32_t rs = instruction >> 21;
+  uint32_t rt = instruction >> 16;
+  uint32_t imm = instruction;
+
+  if(opcode == 0x08)
+  {
+    c->reg[rt] = c->reg[rs] + imm;
+  }
   c->pc += 4;
 }
 
