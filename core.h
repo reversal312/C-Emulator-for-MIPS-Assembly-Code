@@ -1,12 +1,6 @@
 #include <stdint.h>
 
 #define MEM_SIZE 4096
-#define MIPS_RAM_BASE 0x00400000u
-#define MIPS_RAM_SIZE (1024u * 1024u)
-#define MIPS_UART_TX 0xffff0000u
-#define MIPS_TIMER 0xffff0010u
-#define MIPS_REGISTER_COUNT 32u
-#define MIPS_SP_REGISTER 29u
 
 typedef enum
 {

@@ -19,15 +19,31 @@ void step(cpu_t *c)
 
   printf("pc=%08x instruction=%08x\n", c->pc, instruction);
 
+  uint32_t funct = instruction & 0x3f;
   uint32_t opcode = instruction >> 26;
-  uint32_t rs = instruction >> 21;
-  uint32_t rt = instruction >> 16;
-  uint32_t imm = instruction;
-
+  uint32_t rs = instruction >> 21 & 0x1f;
+  uint32_t rt = instruction >> 16 & 0x1f;
+  uint32_t imm = instruction & 0xffff;
+ 
+  int32_t imm16 = (int32_t)(int16_t)imm;
+  // Addi instruction
   if(opcode == 0x08)
   {
-    c->reg[rt] = c->reg[rs] + imm;
+    int32_t temp = c->reg[rs] + imm16;
+  
+    if(rt != 0)
+      c->reg[rt] = temp;
   }
+  c->reg[0] = 0;
+  
+  //break instruction
+  if(opcode == 0 && funct == 0x0d)
+  {
+    c->halted = 1;
+    c->stop_reason = STOP_BREAK;
+  }
+
+
   c->pc += 4;
 }
 
