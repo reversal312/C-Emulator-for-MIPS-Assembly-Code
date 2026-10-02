@@ -1,6 +1,7 @@
 #include <stdint.h>
 
 #define MEM_SIZE 4096
+#define RAM_SIZE 1048576
 
 typedef enum
 {
@@ -8,14 +9,13 @@ typedef enum
     STOP_BREAK,
     STOP_INVALID_INSTRUCTION,
     STOP_MEMORY_FAULT,
-    STOP_INSTRUCTION_LIMIT
 }StopReason;
 
 typedef struct cpu_t
 {
   uint32_t reg[32];
   uint32_t pc;
-  uint32_t mem[MEM_SIZE];
+  uint8_t mem[MEM_SIZE];
   int halted;
 
   StopReason stop_reason;
